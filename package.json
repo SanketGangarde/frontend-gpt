@@ -18,7 +18,8 @@
     "react-spinners": "^0.17.0",
     "react-syntax-highlighter": "^15.6.6",
     "rehype-highlight": "^7.0.2",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "uuid": "^14.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
