@@ -13,16 +13,19 @@ function App() {
 
   const [prompt, setPrompt] = useState('');
   const [reply, setReply] = useState(null);
-  const [currThreadId,setCurrThreadId] = useState(uuidv4());
-  const [prevChats,setPrevChats] = useState([]); // array of {threadId,messages[]} that stores previous chats of a id
-  const [newChat ,setNewChat] = useState(true); // to indicate if a new chat is started
-  const [allChats ,setAllChats] = useState([]); // to store all threads with their titles and ids
+  const [currThreadId, setCurrThreadId] = useState(uuidv4());
+  const [prevChats, setPrevChats] = useState([]); // array of {threadId,messages[]} that stores previous chats of a id
+  const [newChat, setNewChat] = useState(true); // to indicate if a new chat is started
+  const [allChats, setAllChats] = useState([]); // to store all threads with their titles and ids
+
+  const API_URL = import.meta.env.VITE_API_URL;
+
 
   // Check if user is already logged in on mount
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/auth/me", {
+        const response = await fetch(`${API_URL}/api/auth/me`, {
           credentials: "include",
         });
         if (response.ok) {
@@ -44,7 +47,7 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:3000/api/auth/logout", {
+      await fetch(`${API_URL}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
@@ -71,12 +74,12 @@ function App() {
   }
 
   const providerValues = {
-    prompt,setPrompt,
-    reply,setReply,
-    currThreadId,setCurrThreadId,
-    newChat ,setNewChat,
-    prevChats,setPrevChats,
-    allChats ,setAllChats, 
+    prompt, setPrompt,
+    reply, setReply,
+    currThreadId, setCurrThreadId,
+    newChat, setNewChat,
+    prevChats, setPrevChats,
+    allChats, setAllChats,
     user, handleLogout,
   };
 
@@ -85,7 +88,7 @@ function App() {
       <MyContext.Provider value={providerValues}>
         <Sidebar />
         <ChatWindow />
-      </MyContext.Provider>  
+      </MyContext.Provider>
     </div>
   )
 }

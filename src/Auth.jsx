@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Auth.css";
-
-const API_URL = "http://localhost:3000/api/auth";
+const BASE_URL = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
+const API_URL = `${BASE_URL}/api/auth`;
 
 function Auth({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);

@@ -3,6 +3,7 @@ import Chat from "./Chat";
 import { MyContext } from "./MyContext";
 import { useContext, useState } from "react";
 import { ScaleLoader } from "react-spinners";
+const API_URL = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
 
 function ChatWindow() {
     const { prompt, setPrompt, reply, setReply, currThreadId, prevChats, setPrevChats } = useContext(MyContext);
@@ -30,7 +31,7 @@ function ChatWindow() {
         if (typeof setPrompt === "function") setPrompt("");
 
         try {
-            const response = await fetch("http://localhost:3000/api/chat", {
+            const response = await fetch(`${API_URL}/api/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
