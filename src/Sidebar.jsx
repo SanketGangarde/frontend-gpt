@@ -3,7 +3,8 @@ import "./Sidebar.css";
 import { useContext, useState, useEffect } from "react";
 import { MyContext } from "./MyContext";
 import { v4 as uuidv4 } from 'uuid';
-const API_URL = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
+import { API_ENDPOINTS } from "./config";
+import mitraLogo from "./assets/MITRA_LOGO.png";
 
 
 function Sidebar() {
@@ -13,7 +14,7 @@ function Sidebar() {
     useEffect(() => {
         const getAllThreads = async () => {
             try {
-                const response = await fetch(`${API_URL}/api/thread`, { credentials: "include" });
+                const response = await fetch(API_ENDPOINTS.THREAD, { credentials: "include" });
                 const data = await response.json();
 
                 const filteredData = data.map(thread => ({
@@ -44,7 +45,7 @@ function Sidebar() {
 
     const loadChat = async (threadId) => {
         try {
-            const response = await fetch(`${API_URL}/api/thread/${threadId}`, { credentials: "include" });
+            const response = await fetch(`${API_ENDPOINTS.THREAD}/${threadId}`, { credentials: "include" });
             if (response.ok) {
                 const data = await response.json();
                 setCurrThreadId(data.threadId);
@@ -62,7 +63,7 @@ function Sidebar() {
         console.log("deleteChat called with threadId:", threadId);
 
         try {
-            const response = await fetch(`${API_URL}/api/thread/${threadId}`, {
+            const response = await fetch(`${API_ENDPOINTS.THREAD}/${threadId}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });
@@ -93,7 +94,7 @@ function Sidebar() {
             <section>
                 {/* new chat button */}
                 <div className="logo">
-                    <img src="src/assets/MITRA_LOGO.png" alt="MITRA logo" />
+                    <img src={mitraLogo} alt="MITRA logo" />
                     <span className="logo-text">MITRA</span>
                 </div>
 

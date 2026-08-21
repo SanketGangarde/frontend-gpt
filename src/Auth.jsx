@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Auth.css";
-const BASE_URL = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
-const API_URL = `${BASE_URL}/api/auth`;
+import { API_ENDPOINTS } from "./config";
+import mitraLogo from "./assets/MITRA_LOGO.png";
 
 function Auth({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -24,7 +24,7 @@ function Auth({ onLogin }) {
       : { username, email, password };
 
     try {
-      const response = await fetch(`${API_URL}${endpoint}`, {
+      const response = await fetch(`${API_ENDPOINTS.AUTH}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -63,7 +63,7 @@ function Auth({ onLogin }) {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-logo">
-          <img src="src/assets/MITRA_LOGO.png" alt="MITRA logo" />
+          <img src={mitraLogo} alt="MITRA logo" />
           <span>MITRA</span>
         </div>
 

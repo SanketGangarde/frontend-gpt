@@ -2,10 +2,11 @@
 import Sidebar from './Sidebar';
 import ChatWindow from './ChatWindow';
 import Auth from './Auth';
-import './App.css'
+import './App.css';
 import { MyContext } from './MyContext';
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { API_ENDPOINTS } from './config';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -18,14 +19,11 @@ function App() {
   const [newChat, setNewChat] = useState(true); // to indicate if a new chat is started
   const [allChats, setAllChats] = useState([]); // to store all threads with their titles and ids
 
-  const API_URL = import.meta.env.VITE_API_URL;
-
-
   // Check if user is already logged in on mount
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/auth/me`, {
+        const response = await fetch(`${API_ENDPOINTS.AUTH}/me`, {
           credentials: "include",
         });
         if (response.ok) {
@@ -47,7 +45,7 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${API_URL}/api/auth/logout`, {
+      await fetch(`${API_ENDPOINTS.AUTH}/logout`, {
         method: "POST",
         credentials: "include",
       });
